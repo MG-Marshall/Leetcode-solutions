@@ -1,0 +1,24 @@
+We have two special characters:
+The first character can be represented by one bit 0.
+The second character can be represented by two bits (10 or 11).
+Given a binary array bits that ends with 0, return true if the last character must be a one-bit character.
+Example 1:
+Input: bits = [1,0,0]
+Output: true
+Example 2:
+Input: bits = [1,1,1,0]
+Output: false
+
+class Solution {
+public:
+    bool isOneBitCharacter(vector<int>& bits) {
+        int n = bits.size(), flag = 1;
+        for(int i = 0; i < n; i++){
+            if(bits[i] == 1) {
+                flag = 0;
+                i++;
+            } else flag = 1;
+        }
+        return flag;
+    }
+};
