@@ -1,0 +1,22 @@
+Given the head of a singly linked list, return the middle node of the linked list.
+If there are two middle nodes, return the second middle node.
+
+
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        struct ListNode *temp = head;
+        int count = 1, mid;
+        while(temp->next != NULL){
+            temp = temp->next;
+            count++;
+        }
+        mid = (count / 2) + 1;
+        count = 1;
+        while(count != mid){
+            head = head->next;
+            count++;
+        }
+        return head;
+    }
+};
