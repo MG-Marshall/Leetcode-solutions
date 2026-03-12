@@ -1,0 +1,41 @@
+Given a string s containing only lowercase English letters and the '?' character, convert all the '?' characters into lowercase letters 
+such that the final string does not containany consecutive repeating characters. You cannot modify the non '?' characters.
+It is guaranteed that there are no consecutive repeating characters in the given string except for '?'.
+Return the final string after all the conversions (possibly zero) have been made. If there is more than one solution, return any of them. 
+It can be shown that an answer is always possible with the given constraints.
+
+Example 1:
+Input: s = "?zs"
+Output: "azs"
+
+Example 2:
+Input: s = "ubv?w"
+Output: "ubvaw"
+
+
+
+class Solution {
+public:
+    string modifyString(string s) {
+        int i, n = s.size();
+        for (i = 0; i < n; i++) {
+            if (s[i] == '?') {
+                for (char j = 'a'; j <= 'z'; j++) {
+                    if (i == 0 && s[i + 1] != j){ 
+                        s[i] = j;
+                        break;
+                    }
+                    else if (i == n - 1 && s[i - 1] != j){
+                        s[i] = j;
+                        break;
+                    }
+                    else if (i > 0 && i < n-1 && s[i - 1] != j && s[i + 1] != j){
+                        s[i] = j;
+                        break;
+                    }
+                }
+            }
+        }
+        return s;
+    }
+};
