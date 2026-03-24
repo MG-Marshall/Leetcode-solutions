@@ -1,0 +1,51 @@
+You are given the head of a singly linked-list. The list can be represented as:
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+Example 1:
+Input: head = [1,2,3,4]
+Output: [1,4,2,3]
+Example 2:
+Input: head = [1,2,3,4,5]
+Output: [1,5,2,4,3]
+
+
+void reorderList(struct ListNode* head) {
+    if(head == NULL || head->next == NULL) return;
+
+    struct ListNode *slow = head, *fast = head, *head2;
+    while(fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    head2 = slow->next;
+    slow->next = NULL;
+
+    struct ListNode *next = NULL, *prev = NULL, *temp = head, *result = head;
+    while(head2 != NULL){
+        next = head2->next;
+        head2->next = prev;
+        prev = head2;
+        head2 = next;
+    }
+    head2 = prev;
+    int flag = 0;
+    head = head->next;
+
+    while(temp != NULL && head2 != NULL){
+        if (flag == 0) {
+            temp->next = head2;
+            head2 = head2->next;
+            flag = 1;
+        }
+        else {
+            temp->next = head;
+            head = head->next;
+            flag = 0;
+        }
+        temp = temp->next;
+    }
+    if(head2 == NULL) temp->next = head;
+    if(head == NULL) temp->next = head2;
+}
