@@ -1,0 +1,34 @@
+Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+Example 1:
+Input: head = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Example 2:
+Input: head = []
+Output: []
+
+
+
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head == NULL) return NULL;
+        if (head->next == NULL) return new TreeNode(head->val);
+
+        ListNode *middle = head, *last = head, *prev = NULL, *head2;
+
+        while (last != NULL && last->next != NULL) {
+            prev = middle;
+            middle = middle->next;
+            last = last->next->next;
+        }
+        head2 = middle->next;
+        prev->next = NULL;
+        int key = middle->val;
+        TreeNode *root = new TreeNode(key);
+
+        root->left = sortedListToBST(head);
+        root->right = sortedListToBST(head2);
+
+        return root;
+    }
+};
