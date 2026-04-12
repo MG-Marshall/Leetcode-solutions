@@ -1,0 +1,32 @@
+Given the head of a linked list, return the list after sorting it in ascending order.
+Example
+Input: head = [4,2,1,3]
+Output: [1,2,3,4]
+Input: head = [-1,5,3,4,0]
+Output: [-1,0,3,4,5]
+Input: head = []
+Output: []
+
+
+
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        ListNode* temp = head;
+        vector<int> list;
+
+        while(temp){
+            list.push_back(temp->val);
+            temp = temp->next;
+        }
+        sort(list.begin(), list.end());
+
+        temp = head;
+        int i = 0;
+        while(temp && i < list.size()){
+            temp->val = list[i++];
+            temp = temp->next; 
+        }
+        return head;
+    }
+};
