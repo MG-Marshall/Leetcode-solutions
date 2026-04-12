@@ -8,6 +8,7 @@ Input: head = []
 Output: []
 
 
+# 7ms
 
 class Solution {
 public:
@@ -28,5 +29,35 @@ public:
             temp = temp->next; 
         }
         return head;
+    }
+};
+
+
+# 2383 ms
+
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL || head->next == NULL) return head;
+
+        ListNode *dummy = new ListNode(INT_MIN);
+        dummy->next = head;
+        ListNode *curr = dummy, *temp = NULL;
+
+        while(curr->next != NULL){
+            int flag = 1;
+            if(curr->next->val < curr->val) {
+                temp = curr->next;
+                curr->next = temp->next;
+                
+                ListNode *incurr = dummy;
+                while(temp->val > incurr->next->val) incurr = incurr->next;
+                temp->next = incurr->next;
+                incurr->next = temp;
+                flag = 0;
+            }
+            if(flag) curr = curr->next;
+        }
+        return dummy->next;
     }
 };
